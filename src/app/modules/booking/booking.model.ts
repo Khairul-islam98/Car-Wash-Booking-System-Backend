@@ -41,7 +41,11 @@ const bookingSchema = new Schema<IBooking>(
       type: String,
       required: true,
     },
-    manufacturerYear: {
+    manufacturingYear: {
+      type: Number,
+      required: true,
+    },
+    registrationPlate: {
       type: String,
       required: true,
     },

@@ -17,6 +17,6 @@ export interface IBooking {
     | 'tractor';
   vehicleBrand: string;
   vehicleModel: string;
-  manufacturerYear: string;
+  manufacturingYear: number;
   registrationPlate: string;
 }

@@ -41,6 +41,41 @@ const createBookingIntoDB = async (payload: IBooking) => {
   return result;
 };
 
+const getAllBookingFromDB = async () => {
+  const result = await Booking.find()
+    .populate({
+      path: 'customer',
+      select: '_id name email phone address',
+    })
+    .populate({
+      path: 'service',
+      select: '_id name description price duration isDeleted',
+    })
+    .populate({
+      path: 'slot',
+      select: '_id service date startTime endTime isBooked',
+    });
+  return result;
+};
+const getMyBookingFromDB = async (userData: string) => {
+  const user = await User.findById(userData);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  const result = await Booking.find({ customer: userData })
+    .populate({
+      path: 'service',
+      select: '_id name description price duration isDeleted',
+    })
+    .populate({
+      path: 'slot',
+      select: '_id service date startTime endTime isBooked',
+    });
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
+  getAllBookingFromDB,
+  getMyBookingFromDB,
 };
